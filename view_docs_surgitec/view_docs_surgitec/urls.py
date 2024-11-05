@@ -1,30 +1,13 @@
-"""
-URL configuration for view_docs_surgitec project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
-from django.http import HttpResponse
-
-# Função para exibir uma página simples
-def home(request):
-    return HttpResponse("Bem-vindo ao sistema de gerenciamento de PDFs da Surgitec!")
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),  # Página inicial do site
+    path('', views.home, name='home'),  # Atualizado para usar a função home do views.py
+    path('cadastrar_funcionario/', views.cadastrar_funcionario, name='cadastrar_funcionario'),
+    path('cadastrar_funcionario/sucesso/', views.cadastro_sucesso, name='cadastrar_funcionario_sucesso'),  # Nova URL
 ]
+
 
 
