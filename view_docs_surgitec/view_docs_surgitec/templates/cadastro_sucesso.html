@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    {% load static %}
+    <title>Sucesso no Cadastro</title>
+    {% load static %}  
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Bem-vindo ao sistema de gerenciamento de PDFs da Surgitec!</h1>
-    <a href="/cadastrar_funcionario/" class="btn">Cadastrar Funcionário</a>
-    <a href="/login/" class="btn">Logar</a>
+    <h1>Cadastro realizado com sucesso!</h1>
+    <a href="{% url 'home' %}" class="btn">Voltar para Home</a>
 </body>
 </html>

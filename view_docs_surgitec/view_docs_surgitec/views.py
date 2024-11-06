@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from .models import Funcionario
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate, login
 
 def home(request):
     return render(request, 'home.html') 
@@ -21,9 +22,30 @@ def cadastrar_funcionario(request):
         # Cria o funcionário associado
         Funcionario.objects.create(nome=nome, usuario=user, funcao=funcao)
 
-        return redirect('cadastrar_funcionario_sucesso')  # Redireciona para a página de sucesso
+        # Redireciona para a página de sucesso
+        return redirect('cadastrar_funcionario_sucesso')  
 
     return render(request, 'cadastrar_funcionario.html')
 
 def cadastro_sucesso(request):
-    return HttpResponse("Cadastro realizado com sucesso!")
+    return render(request, 'cadastro_sucesso.html')
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        # Verifica se o usuário existe
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            # Faz login no sistema
+            login(request, user)  
+            # Redireciona para a página inicial
+            return redirect('pagina_inicial')  
+        else:
+            return HttpResponse('Usuário não cadastrado. <a href="/cadastrar_funcionario/">Cadastrar Funcionário</a>')
+    # Retorna o template de login
+    return render(request, 'login.html')  
+
+def pagina_inicial(request):
+    return render(request, 'pagina_inicial.html')

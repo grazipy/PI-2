@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    {% load static %}  <!-- Carregando a biblioteca estática -->
+    {% load static %}  
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
@@ -19,5 +19,7 @@
         
         <button type="submit">Logar</button>
     </form>
+    <br>
+    <a href="{% url 'home' %}" class="btn">Voltar a Home</a> <!-- fazer o botão no css -->
 </body>
 </html>

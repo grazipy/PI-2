@@ -1,8 +1,6 @@
 from django.db import models
 
-# Create your models here.
-
-
+#classe para criar a tabela no MySQL
 class Funcionario(models.Model):
     nome = models.CharField(max_length=255)
     usuario = models.CharField(max_length=150, unique=True)
