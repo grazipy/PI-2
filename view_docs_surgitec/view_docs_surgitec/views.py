@@ -14,8 +14,8 @@ def cadastrar_funcionario(request):
         nome = request.POST['nome']
         usuario = request.POST['usuario']
         senha = make_password(request.POST['senha'])
-        funcao = request.POST['funcao']
-
+        funcao = request.POST['funcao'].upper()
+        
         # Cria o usuário do Django
         user = User.objects.create(username=usuario, password=senha)
 
@@ -40,12 +40,27 @@ def login_view(request):
         if user is not None:
             # Faz login no sistema
             login(request, user)  
-            # Redireciona para a página inicial
-            return redirect('pagina_inicial')  
+
+
+            # Verifica a função do funcionário
+            funcionario = Funcionario.objects.get(usuario=user)
+            if funcionario.funcao.upper() == 'GESTOR':
+                # Redireciona para a página do gestor
+                return redirect('pagina_gestor')
+            else:
+                # Redireciona para a página do funcionário
+                return redirect('pagina_funcionario')
+            
+            
         else:
             return HttpResponse('Usuário não cadastrado. <a href="/cadastrar_funcionario/">Cadastrar Funcionário</a>')
     # Retorna o template de login
     return render(request, 'login.html')  
 
-def pagina_inicial(request):
-    return render(request, 'pagina_inicial.html')
+# Página para gestores
+def pagina_gestor(request):
+    return render(request, 'pagina_gestor.html') 
+
+# Página para funcionários
+def pagina_funcionario(request):
+    return render(request, 'pagina_funcionario.html')
